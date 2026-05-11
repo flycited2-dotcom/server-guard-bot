@@ -1,0 +1,16 @@
+# Install with: visudo -f /etc/sudoers.d/serverguard
+# Keep this list narrow. Do not add shells, editors, docker exec, or arbitrary paths.
+
+serverguard ALL=(root) NOPASSWD: /usr/bin/docker compose -f /root/climat-simf-qa-agent/docker-compose.yml ps qa-agent
+serverguard ALL=(root) NOPASSWD: /usr/bin/docker compose -f /root/climat-simf-qa-agent/docker-compose.yml logs --tail * qa-agent
+serverguard ALL=(root) NOPASSWD: /usr/bin/docker compose -f /root/climat-simf-qa-agent/docker-compose.yml start qa-agent
+serverguard ALL=(root) NOPASSWD: /usr/bin/docker compose -f /root/climat-simf-qa-agent/docker-compose.yml restart qa-agent
+serverguard ALL=(root) NOPASSWD: /usr/bin/docker compose -f /root/climat-simf-qa-agent/docker-compose.yml stop qa-agent
+
+serverguard ALL=(root) NOPASSWD: /usr/bin/systemctl status parser_admin_bot.service --no-pager -l
+serverguard ALL=(root) NOPASSWD: /usr/bin/journalctl -u parser_admin_bot.service --no-pager -n *
+serverguard ALL=(root) NOPASSWD: /usr/bin/systemctl restart parser_admin_bot.service
+
+serverguard ALL=(root) NOPASSWD: /usr/bin/pm2 describe climat-simf-store
+serverguard ALL=(root) NOPASSWD: /usr/bin/pm2 logs climat-simf-store --lines * --nostream
+serverguard ALL=(root) NOPASSWD: /usr/bin/pm2 restart climat-simf-store

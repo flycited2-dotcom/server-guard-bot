@@ -1,0 +1,33 @@
+{
+  "servers": [
+    {
+      "id": "main-vps",
+      "title": "Main VPS 212.116.115.150",
+      "transport": "local",
+      "services": [
+        {
+          "id": "qa-agent",
+          "title": "QA тестировщик сайта",
+          "kind": "docker_compose",
+          "composePath": "/root/climat-simf-qa-agent/docker-compose.yml",
+          "serviceName": "qa-agent",
+          "actions": ["status", "logs", "start", "restart", "stop"]
+        },
+        {
+          "id": "parser-admin-bot",
+          "title": "Crimea Parser Admin Bot",
+          "kind": "systemd",
+          "unit": "parser_admin_bot.service",
+          "actions": ["status", "logs", "restart"]
+        },
+        {
+          "id": "climat-store",
+          "title": "Climat Simf Store",
+          "kind": "pm2",
+          "processName": "climat-simf-store",
+          "actions": ["status", "logs", "restart"]
+        }
+      ]
+    }
+  ]
+}

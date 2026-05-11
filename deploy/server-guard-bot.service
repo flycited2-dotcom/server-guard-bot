@@ -1,0 +1,23 @@
+[Unit]
+Description=Server Guard Telegram Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=serverguard
+Group=serverguard
+WorkingDirectory=/opt/server-guard-bot
+EnvironmentFile=/opt/server-guard-bot/.env
+ExecStart=/usr/bin/node /opt/server-guard-bot/dist/src/index.js
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=read-only
+ReadWritePaths=/opt/server-guard-bot/audit
+StandardOutput=append:/var/log/server-guard-bot.log
+StandardError=append:/var/log/server-guard-bot.log
+
+[Install]
+WantedBy=multi-user.target
